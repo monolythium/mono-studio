@@ -45,7 +45,7 @@ Watch this repo for the first non-preview release before standing up anything yo
 
 - **Node** 22+
 - **pnpm** 10+ (`corepack enable && corepack prepare pnpm@10 --activate`)
-- A POSIX shell. macOS, Linux, and WSL are tested; native Windows should work but is unverified.
+- A POSIX-compatible shell. Native Windows is unverified.
 - Rust + cargo are *not* required today — the current build path produces preview artifacts in pure TypeScript. They'll be required once the canonical MRV builder wires in.
 
 ## Quick start
@@ -77,7 +77,7 @@ node dist/cli/mono-dev.js simulate /tmp/my-counter
 To bring up the Studio UI in a browser instead:
 
 ```bash
-pnpm dev   # serves at http://localhost:5173
+pnpm dev   # serves at http://localhost:5174 by default (vite.config.ts; non-strict, may shift if taken)
 ```
 
 ## CLI reference
@@ -96,22 +96,11 @@ pnpm dev   # serves at http://localhost:5173
 
 Deploy, call, token-create, and publish flows produce **approval payloads only**. Signing and submission happen at the wallet boundary — never inside this CLI.
 
-## MCP integration (Claude Desktop / Cursor / Claude Code)
+## MCP integration
 
-The Native-dev MCP profile lives at [`src/mcp/nativeDevMcp.ts`](./src/mcp/nativeDevMcp.ts). It declares every dev tool, every resource, every prompt template, and which operations require wallet approval. Until the standalone MCP server binary ships, the easiest way to drive Mono Studio from an AI client today is through the Monolythium desktop wallet's Studio tab — it spawns the DevKit as a sidecar and routes destructive operations through the wallet's approval bridge.
+The Native-dev MCP profile lives at [`src/mcp/nativeDevMcp.ts`](./src/mcp/nativeDevMcp.ts). It declares every dev tool, every resource, every prompt template, and which operations require wallet approval.
 
-When the standalone MCP binary lands, your AI client's MCP config will look like:
-
-```json
-{
-  "mcpServers": {
-    "mono-studio": {
-      "command": "mono-dev",
-      "args": ["mcp"]
-    }
-  }
-}
-```
+**There is no standalone MCP server binary in this repo yet.** The descriptor is the contract; an MCP server that imports it and binds each tool to the shared `src/devkit/` functions is the next integration task (see [`docs/native-devkit.md`](./docs/native-devkit.md) §"Next Integration Tasks"). Until that lands, the wired path to drive Mono Studio from an AI client is through the Monolythium desktop wallet's Studio tab — it spawns the DevKit as a sidecar and routes destructive operations through a Studio-specific approval flow before any signing happens.
 
 The descriptor's read/write boundary is intentional:
 
@@ -136,7 +125,7 @@ mono-studio/
 └── docs/                   # Architectural decision records.
 ```
 
-The DevKit modules are deliberately adapter-shaped so they can be replaced by canonical bindings from [`mono-core`](https://github.com/monolythium-vision/mono-core) and `mono-core-sdk` once those packages are pinned. The deterministic hash helper today is a preview checksum; canonical artifact hashing lands with the first mainnet-blocking release.
+The DevKit modules are deliberately adapter-shaped so they can be replaced by canonical bindings from `mono-core` and `mono-core-sdk` once those packages are pinned. The deterministic hash helper today is a preview checksum; canonical artifact hashing lands with the first mainnet-blocking release.
 
 ## Documentation
 
@@ -151,8 +140,8 @@ The DevKit modules are deliberately adapter-shaped so they can be replaced by ca
 ## Related projects
 
 - [**monolythium.com**](https://monolythium.com) — protocol home, whitepaper, ecosystem links
-- **monolythium/desktop-wallet** *(private)* — the Monolythium wallet that hosts the Studio tab as a sidecar
-- **monolythium-vision/mono-core** *(private)* — the chain itself; the source of truth for canonical artifact bindings that replace this DevKit's adapter shims
+- **`monolythium/desktop-wallet`** *(private)* — the Monolythium wallet that hosts the Studio tab as a sidecar
+- **`monolythium/mono-core`** *(private)* — the chain itself; the source of truth for canonical artifact bindings that replace this DevKit's adapter shims
 
 ## Contributing
 

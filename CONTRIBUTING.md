@@ -4,16 +4,16 @@ Thanks for considering a contribution. Mono Studio is in **preview** — the API
 
 ## Before opening a pull request
 
-Run all three gates locally:
+Run all three gates locally — there is no CI workflow in the repo today, so the burden is on you:
 
 ```bash
 pnpm install
 pnpm typecheck   # tsc --noEmit
-pnpm test        # devkit tests + no-evm guardrail scan
-pnpm build       # no-evm + tsc + vite build + CLI build
+pnpm test        # build:node + devkit tests + no-evm guardrail scan
+pnpm build       # no-evm + tsc --noEmit + vite build + CLI build
 ```
 
-Keep them green. CI runs the same gates.
+Keep all three green before opening the PR.
 
 ## Scope of changes we're looking for
 
