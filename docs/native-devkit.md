@@ -2,7 +2,7 @@
 
 ## Scope
 
-This repo implements the Mono Studio first-pass shell as a standalone private app. It keeps the surface aligned with the cross-repo plan while leaving clear adapter points for:
+This repo implements the Mono Studio first-pass shell as a standalone app. It keeps the surface aligned with the broader Monolythium ecosystem plan while leaving clear adapter points for:
 
 - canonical MRV artifact validation from `mono-core`;
 - reusable native-dev APIs from `mono-core-sdk`;
