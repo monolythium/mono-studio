@@ -2,6 +2,18 @@
 
 Mono Studio is the native builder shell for MRV contracts, MRC assets, wallet approval plans, local simulation, template registry workflows, and AI-assisted development.
 
+## Status: preview
+
+This is an early-access release. It is functional but not yet production-grade — set expectations before adopting:
+
+- **Chain target is testnet.** Monolythium mainnet has not launched. Anything you build here runs against the public testnet today; mainnet activation is gated on separate protocol milestones.
+- **Adapter-shaped DevKit modules.** `src/devkit/` is intentionally adapter-shaped so the implementations can be replaced by canonical bindings from `mono-core` and `mono-core-sdk` once those packages are pinned. The deterministic hash helper is a preview checksum, not the final artifact hash.
+- **Clone-and-build only.** No published npm package, no downloadable binary, no installer. `pnpm install && pnpm build` from a clone is the supported path.
+- **Wallet host pending.** Mono Studio talks to the Monolythium desktop wallet's Studio tab over a sidecar boundary for approval payloads. The host side is in-flight; the wallet release that ships the Studio tab as a public default is not out yet.
+- **API + CLI surface may change.** Until the first non-preview tag, expect breaking changes between commits.
+
+Watch this repo for the first non-preview release before standing up anything you'd hate to migrate.
+
 This repo currently contains:
 
 - React Studio shell for tokens, contracts, templates, simulation, deployments, verification, MCP, and settings.
