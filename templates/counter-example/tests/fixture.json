@@ -1,0 +1,17 @@
+{
+  "templateId": "counter-example",
+  "state": {
+    "counter.value": "0"
+  },
+  "calls": [
+    {
+      "name": "increment",
+      "input": {
+        "amount": "1"
+      },
+      "expect": {
+        "value": "1"
+      }
+    }
+  ]
+}

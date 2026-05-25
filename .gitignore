@@ -1,0 +1,39 @@
+# Build output + caches
+node_modules/
+dist/
+.vite/
+*.log
+target/
+coverage/
+.DS_Store
+
+# Local-only Claude Code + per-repo context (NEVER push)
+CLAUDE.md
+.claude/local/
+.claude/skills/
+TODO.md
+RESUME.md
+STATUS.md
+*.internal.md
+AUDIT-*.md
+
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.keystore
+*.p12
+secrets/
+credentials/
+
+# Editor cruft
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+Thumbs.db
+scratch/

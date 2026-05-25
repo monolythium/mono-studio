@@ -1,0 +1,34 @@
+{
+  "name": "@monolythium/mono-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Mono Studio native builder shell and headless devkit for MRV contracts and MRC assets.",
+  "license": "Apache-2.0",
+  "bin": {
+    "mono-dev": "./dist/cli/mono-dev.js"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "pnpm no-evm && tsc --noEmit && vite build && tsc -p tsconfig.node.json",
+    "build:node": "tsc -p tsconfig.node.json",
+    "preview": "vite preview --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "no-evm": "node scripts/no-evm-scan.mjs",
+    "test": "pnpm build:node && node dist/tests/devkit.test.js && pnpm no-evm"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  },
+  "packageManager": "pnpm@10.28.2"
+}
